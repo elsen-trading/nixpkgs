@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , pytestCheckHook }:
@@ -18,6 +19,8 @@ buildPythonPackage rec {
   };
 
   dontConfigure = true;
+
+  SETUPTOOLS_USE_DISTUTILS = if stdenv.cc.isClang then "stdlib" else null;
 
   checkInputs = [
     pytestCheckHook
