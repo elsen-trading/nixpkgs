@@ -1,5 +1,6 @@
 { buildPackages
 , lib
+, stdenv
 , fetchpatch
 , python
 , buildPythonPackage
@@ -31,6 +32,8 @@ buildPythonPackage {
       stripLen = 1;
     })
   ;
+
+  SETUPTOOLS_USE_DISTUTILS = if stdenv.cc.isClang then "stdlib" else null;
 
   prePatch = ''
     while [ ! -d python ]; do
